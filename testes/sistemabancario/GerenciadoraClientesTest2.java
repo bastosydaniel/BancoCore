@@ -8,9 +8,11 @@ import static org.hamcrest.CoreMatchers.is;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class GerenciadoraClientesTest1 {
+public class GerenciadoraClientesTest2 {
 	
 	/**
 	 * Classe de teste para testar operacoes de {@link GerenciadoraClientes}
@@ -20,16 +22,16 @@ public class GerenciadoraClientesTest1 {
 	 */
 	
 	private GerenciadoraClientes gerClientes;
-
-	@Test
-	public void testPesquisaCliente() {
-		// Criação de cenário
-		int idCliente01 = 1;
-		int idCliente02 = 2;
-		
-		int idContaCorrente01 =1;
-		int idContaCorrente02 =2;
-		
+	
+	private int idCliente01 = 1;
+	private int idCliente02 = 2;
+	
+	private int idContaCorrente01 =1;
+	private int idContaCorrente02 =2;
+	
+	//Montagem do cenário global a cada execução de um teste
+	@Before
+	public void setUp() {
 		Cliente cliente1 = new Cliente(1,"Joao",46,"joao@gmail.com",1,true);
 		Cliente cliente2 = new Cliente(2,"Maria",11,"maria@gmail.com",2,true);
 		
@@ -37,9 +39,17 @@ public class GerenciadoraClientesTest1 {
 		clientes.add(cliente1);
 		clientes.add(cliente2);
 		
-		
 		gerClientes = new GerenciadoraClientes(clientes);
-		
+	}
+	
+	//Desmontagem do cenário global a cada execução de um teste
+	@After
+	public void tearDown() {
+		gerClientes.limpa();
+	}
+
+	@Test
+	public void testPesquisaCliente() {
 		//execucao do teste
 		Cliente cliente = gerClientes.pesquisaCliente(idCliente01);
 		
@@ -47,22 +57,8 @@ public class GerenciadoraClientesTest1 {
 		assertThat(cliente.getId(), is(idCliente01));
 	}
 	
+	@Test
 	public void testRemoveCliente() {
-		// TODO Auto-generated method stub
-		int idCliente01 = 1;
-		int idCliente02 = 2;
-		
-		int idContaCorrente01 =1;
-		int idContaCorrente02 =2;
-		
-		Cliente cliente1 = new Cliente(idCliente01,"Joao",46,"joao@gmail.com",idContaCorrente01,true);
-		Cliente cliente2 = new Cliente(idCliente02,"Maria",11,"maria@gmail.com",idContaCorrente02,true);
-		
-		List<Cliente> clientes = new ArrayList<>();
-		clientes.add(cliente1);
-		clientes.add(cliente2);
-		
-		gerClientes = new GerenciadoraClientes(clientes);
 		
 		boolean clienteRemovido = gerClientes.removeCliente(idCliente02);
 		
